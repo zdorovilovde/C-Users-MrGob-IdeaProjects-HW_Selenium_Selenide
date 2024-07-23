@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
@@ -43,10 +44,9 @@ public class PositiveApplicationTest {
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79507243850");
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.cssSelector("button.button")).click();
-        var actualElement = driver.findElement(By.cssSelector("[data-test-id=order-success]"));
-        var actualText = actualElement.getText().trim();
+        WebElement actualElement = driver.findElement(By.cssSelector("[data-test-id=order-success]"));
+        String actualText = actualElement.getText().trim();
         assertEquals("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", actualText);
         assertTrue(actualElement.isDisplayed());
-
     }
 }
