@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
@@ -44,6 +43,8 @@ public class NegativeApplicationTest {
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79507243850");
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.cssSelector("button.button")).click();
+        assertEquals("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.",
+                driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).getText().trim());
         assertTrue(driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid")).isDisplayed());
     }
 
@@ -53,6 +54,8 @@ public class NegativeApplicationTest {
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("89507243850");
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.cssSelector("button.button")).click();
+        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.",
+                driver.findElement(By.cssSelector("[data-test-id='phone'].input_invalid .input__sub")).getText().trim());
         assertTrue(driver.findElement(By.cssSelector("[data-test-id='phone'].input_invalid")).isDisplayed());
 
     }
@@ -62,6 +65,8 @@ public class NegativeApplicationTest {
         driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Здоровилов Дмитрий");
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79507243850");
         driver.findElement(By.cssSelector("button.button")).click();
+        assertEquals("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй",
+                driver.findElement(By.cssSelector("[data-test-id='agreement'].input_invalid")).getText().trim());
         assertTrue(driver.findElement(By.cssSelector("[data-test-id='agreement'].input_invalid")).isDisplayed());
     }
 
